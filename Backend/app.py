@@ -70,6 +70,14 @@ def protected():
         return jsonify({'message': f'Hoş geldin {user.username}!'})
     except:
         return jsonify({'message': 'Geçersiz token!'}), 401
+@app.route('/verify-token', methods=['POST'])
+def verify_token():
+    token = request.json.get('token')
+    try:
+        data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
+        return jsonify({"valid": True, "user": data['username']})
+    except Exception as e:
+        return jsonify({"valid": False, "error": str(e)})
 
 # Veritabanı oluşturulan yer
 with app.app_context():

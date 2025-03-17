@@ -17,6 +17,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     if(response.ok) {
         localStorage.setItem('token', data.token);
         alert('Giriş başarılı!');
+        document.getElementById('tokenDisplay').textContent = "Token: " + data.token;
         // token ile giriş yapılacak sayfaya yönlendirme
         window.location.href = '/protected.html';
     } else {
